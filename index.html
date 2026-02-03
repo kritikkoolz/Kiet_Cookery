@@ -1,81 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>One Question ❤️</title>
+<meta charset="UTF-8">
+<title>One Question ❤️</title>
 
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            background: linear-gradient(135deg, #ffd1dc, #fff0f5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Arial', sans-serif;
-        }
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #ffd1dc, #fff0f5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+    }
 
-        .box {
-            background: white;
-            padding: 40px 50px;
-            border-radius: 25px;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-        }
+    .box {
+        background: white;
+        padding: 40px 50px;
+        border-radius: 25px;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
 
-        h1 {
-            color: #e75480;
-            margin-bottom: 30px;
-        }
+    h1 {
+        color: #e75480;
+        margin-bottom: 30px;
+    }
 
-        button {
-            font-size: 18px;
-            padding: 12px 35px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-        }
+    button {
+        font-size: 18px;
+        padding: 12px 35px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        margin: 10px;
+    }
 
-        #yes {
-            background-color: #ff69b4;
-            color: white;
-        }
+    #yes {
+        background-color: #ff69b4;
+        color: white;
+    }
 
-        #no {
-            background-color: #d3d3d3;
-            position: absolute;
-        }
-    </style>
+    #no {
+        background-color: #d3d3d3;
+        position: absolute;
+    }
+</style>
 </head>
 
 <body>
 
 <div class="box">
     <h1>Will you forgive me? 🥺❤️</h1>
-    <button id="yes" onclick="yesClick()">Yes</button>
+    <button id="yes">Yes</button>
     <button id="no">No</button>
 </div>
 
 <script>
     const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
 
-    noBtn.addEventListener("mouseover", () => {
+    function moveNoButton() {
         const x = Math.random() * (window.innerWidth - 120);
         const y = Math.random() * (window.innerHeight - 60);
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
+    }
+
+    // Desktop
+    noBtn.addEventListener("mouseover", moveNoButton);
+
+    // Mobile / Touch
+    noBtn.addEventListener("touchstart", function(e) {
+        e.preventDefault();
+        moveNoButton();
     });
 
-    function yesClick() {
+    // Extra safety
+    noBtn.addEventListener("click", moveNoButton);
+
+    yesBtn.addEventListener("click", function() {
         document.body.innerHTML = `
             <div style="
                 height:100vh;
+                width:100%;
                 background:linear-gradient(135deg,#ffd1dc,#fff0f5);
                 display:flex;
                 justify-content:center;
                 align-items:center;
                 font-family:Arial;
-                text-align:center;">
+                text-align:center;
+                padding:20px;">
                 <h1 style="color:#e75480;">
                     Thank you ❤️<br><br>
                     I promise to listen,<br>
@@ -85,7 +103,7 @@
                 </h1>
             </div>
         `;
-    }
+    });
 </script>
 
 </body>
