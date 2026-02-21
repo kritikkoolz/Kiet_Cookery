@@ -1,109 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>One Question ❤️</title>
+<title>This Is Us ❤️</title>
 
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        background: linear-gradient(135deg, #ffd1dc, #fff0f5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: Arial, sans-serif;
-        overflow: hidden;
-    }
+body {
+    margin:0;
+    height:100vh;
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+}
 
-    .box {
-        background: white;
-        padding: 40px 50px;
-        border-radius: 25px;
-        text-align: center;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
+/* Background Photo */
+.background {
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:url('us.jpg') center/cover no-repeat;
+    filter:blur(6px) brightness(0.7);
+    z-index:-1;
+}
 
-    h1 {
-        color: #e75480;
-        margin-bottom: 30px;
-    }
+/* Glass box */
+.box {
+    position:relative;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(10px);
+    padding:50px;
+    border-radius:25px;
+    text-align:center;
+    color:white;
+    width:85%;
+    max-width:500px;
+}
 
-    button {
-        font-size: 18px;
-        padding: 12px 35px;
-        border: none;
-        border-radius: 30px;
-        cursor: pointer;
-        margin: 10px;
-    }
+h1 {
+    font-weight:normal;
+    margin-bottom:30px;
+}
 
-    #yes {
-        background-color: #ff69b4;
-        color: white;
-    }
+button {
+    font-size:18px;
+    padding:12px 35px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    margin:10px;
+    transition:0.3s;
+}
 
-    #no {
-        background-color: #d3d3d3;
-        position: absolute;
-    }
+#yes {
+    background:#ff4d88;
+    color:white;
+}
+
+#no {
+    background:#ddd;
+    color:black;
+    position:absolute;
+}
 </style>
 </head>
 
 <body>
 
+<div class="background"></div>
+
 <div class="box">
-    <h1>Will you forgive me? 🥺❤️</h1>
-    <button id="yes">Yes</button>
+    <h1>
+        This photo is my favorite place ❤️<br><br>
+        I know I’m not perfect…<br>
+        But I only want you.<br><br>
+        Can we fix this together?
+    </h1>
+
+    <button id="yes">Yes ❤️</button>
     <button id="no">No</button>
 </div>
 
 <script>
-    const noBtn = document.getElementById("no");
-    const yesBtn = document.getElementById("yes");
 
-    function moveNoButton() {
-        const x = Math.random() * (window.innerWidth - 120);
-        const y = Math.random() * (window.innerHeight - 60);
-        noBtn.style.left = x + "px";
-        noBtn.style.top = y + "px";
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+
+let attempts = 0;
+
+const noTexts = [
+"No 😒",
+"Are you sure? 🥺",
+"Really sure? 😢",
+"Think again ❤️",
+"Don’t leave me 😭",
+"Okay wait...",
+"Let’s talk instead 💬"
+];
+
+function moveNo() {
+    const x = Math.random() * (window.innerWidth - 150);
+    const y = Math.random() * (window.innerHeight - 80);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    if (attempts < noTexts.length) {
+        noBtn.innerText = noTexts[attempts];
     }
 
-    // Desktop
-    noBtn.addEventListener("mouseover", moveNoButton);
+    yesBtn.style.transform = `scale(${1 + attempts * 0.1})`;
 
-    // Mobile / Touch
-    noBtn.addEventListener("touchstart", function(e) {
-        e.preventDefault();
-        moveNoButton();
-    });
+    attempts++;
 
-    // Extra safety
-    noBtn.addEventListener("click", moveNoButton);
+    if (attempts > 6) {
+        noBtn.style.position = "relative";
+        noBtn.style.left = "0px";
+        noBtn.style.top = "0px";
+        noBtn.innerText = "Okay… let’s talk ❤️";
+    }
+}
 
-    yesBtn.addEventListener("click", function() {
-        document.body.innerHTML = `
-            <div style="
-                height:100vh;
-                width:100%;
-                background:linear-gradient(135deg,#ffd1dc,#fff0f5);
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                font-family:Arial;
-                text-align:center;
-                padding:20px;">
-                <h1 style="color:#e75480;">
-                    Thank you ❤️<br><br>
-                    I promise to listen,<br>
-                    understand,<br>
-                    and do better every day.<br><br>
-                    Always yours 💕
-                </h1>
-            </div>
-        `;
-    });
+/* Laptop */
+noBtn.addEventListener("mouseover", moveNo);
+
+/* Mobile */
+noBtn.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    moveNo();
+});
+
+/* Extra safety */
+noBtn.addEventListener("click", moveNo);
+
+yesBtn.addEventListener("click", function(){
+    document.body.innerHTML = `
+    <div style="
+        height:100vh;
+        background:url('us.jpg') center/cover no-repeat;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+        font-family:Arial;">
+        <div style="
+            background:rgba(0,0,0,0.6);
+            padding:40px;
+            border-radius:25px;
+            color:white;">
+            <h1>
+                Thank you for choosing us ❤️<br><br>
+                I promise I’ll prove it with actions,<br>
+                not just words.
+            </h1>
+        </div>
+    </div>`;
+});
+
 </script>
 
 </body>
